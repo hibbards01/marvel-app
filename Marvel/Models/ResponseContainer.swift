@@ -7,11 +7,17 @@
 
 import Foundation
 
+/// Container that holds the response.
 struct ResponseContainer<Model: Codable>: Codable {
+    /// Status code.
     let code: Int
+    
+    /// String description of call status.
     let status: String
+    
+    /// Copyright string.
     let copyright: String
-    let attributionText: String
-    let attributionHTML: String
+    
+    /// Results returned by the call.
     let data: DataContainer<Model>
 }

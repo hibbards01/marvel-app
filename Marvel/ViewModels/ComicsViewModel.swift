@@ -10,26 +10,26 @@ import Foundation
 import Alamofire
 
 class ComicsViewModel: ObservableObject {
-    typealias Response = ResponseContainer<ComicModel>
+    @Published var comic: ComicModel?
+    private let dataSource: MarvelDataSource<ComicModel>
     
     init() {
-        getComics()
+        dataSource = MarvelResolver.resolver.resolve(MarvelDataSource<ComicModel>.self)!
+        setupSubscription()
     }
     
-    private func getComics() {
-        Task {
-            let settingsViewModel = SettingsViewModel()
-            let dataSource = MarvelDataSource(api: .comics(nil))
-            let result: Result<Response, AFError> = await dataSource.getData(publicKey: settingsViewModel.publicKey,
-                                                                             privateKey: settingsViewModel.privateKey,
-                                                                             parameters: ["limit": "50"])
-            
+    private func setupSubscription() {
+        dataSource.data.map { result -> ComicModel? in
             switch result {
-            case .success(let response):
-                print(response)
+            case .success(let comics):
+                print(comics)
+                return comics.first
             case .failure(let error):
                 print(error)
+                return nil
             }
         }
+        .receive(on: RunLoop.main)
+        .assign(to: &$comic)
     }
 }

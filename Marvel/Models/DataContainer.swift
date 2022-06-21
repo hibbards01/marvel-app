@@ -7,10 +7,17 @@
 
 import Foundation
 
+/// Container to hold the data.
 struct DataContainer<Model: Codable>: Codable {
+    /// Number of skipped results.
     let offset: Int
+    
+    /// Result limit.
     let limit: Int
+    
+    /// Total results.
     let total: Int
-    let count: Int
+    
+    /// An Array of the Model specified.
     let results: [Model]
 }

@@ -7,7 +7,16 @@
 
 import Combine
 
-class SettingsViewModel: ObservableObject {
+/// The settings for the APP.
+protocol Settings {
+    /// Public key needed for the API.
+    var publicKey: String { get }
+    
+    /// Private key needed for the API.
+    var privateKey: String { get }
+}
+
+class SettingsViewModel: Settings, ObservableObject {
     var publicKey: String = ""
     var privateKey: String = ""
 }
