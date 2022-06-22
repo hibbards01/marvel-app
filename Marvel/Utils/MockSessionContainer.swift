@@ -12,12 +12,12 @@ import UIKit
 let mockComicModels: [ComicModel] = [
     ComicModel(id: 1,
                title: "test",
-               description: "test desc",
+               description: "description",
                variantDescription: "test variant",
                thumbnail: MImage(path: "path/to/file", fileType: ".jpg")),
     ComicModel(id: 2,
                title: "test",
-               description: "test desc",
+               description: "description",
                variantDescription: "test variant",
                thumbnail: MImage(path: "path/to/file", fileType: ".jpg"))
 ]

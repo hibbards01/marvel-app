@@ -6,6 +6,7 @@
 //
 
 import Swinject
+import Foundation
 
 class MarvelAssembly: Assembly {
     func assemble(container: Container) {
@@ -14,7 +15,18 @@ class MarvelAssembly: Assembly {
         }
         
         container.register(SessionContainer.self) { _ in
-            SessionContainerProvider()
+        #if DEBUG
+            if CommandLine.arguments.contains("-mockSessionContainer") {
+                let sessionContainer = MockSessionContainer<ComicModel>()
+                sessionContainer.setSuccess(response: mockResponse)
+                self.clearUserDefaults()
+                return sessionContainer
+            } else {
+                return SessionContainerProvider()
+            }
+        #else
+            return SessionContainerProvider()
+        #endif
         }
         
         container.register(MarvelDataSource<ComicModel>.self) { resolver in
@@ -28,5 +40,10 @@ class MarvelAssembly: Assembly {
             let sessionContainer = resolver.resolve(SessionContainer.self)!
             return ComicsViewModel(dataSource: dataSource, sessionContainer: sessionContainer)
         }
+    }
+    
+    private func clearUserDefaults() {
+        UserDefaults.standard.set("", forKey: publicKeyString)
+        UserDefaults.standard.set("", forKey: privateKeyString)
     }
 }

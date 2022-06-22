@@ -44,6 +44,7 @@ struct ComicSearchView: View {
                 }) {
                     Image(systemName: "gear.circle")
                 }
+                .accessibilityLabel("settings")
             }
         }
         .sheet(isPresented: $showModal) {

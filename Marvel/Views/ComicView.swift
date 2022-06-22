@@ -21,6 +21,7 @@ struct ComicView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(minHeight: 300, maxHeight: 400)
+                        .accessibilityLabel("comic-image")
                 }
                 
                 Text(title)
