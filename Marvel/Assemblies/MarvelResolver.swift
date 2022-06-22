@@ -7,7 +7,9 @@
 
 import Swinject
 
+/// Resolver for the app.
 struct MarvelResolver {
+    /// `static` resolver so it can be used anywhere.
     static let resolver = assembleContainer()
     
     private init() {}

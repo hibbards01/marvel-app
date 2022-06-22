@@ -8,8 +8,14 @@
 import SwiftUI
 import Swinject
 
+/// View to search for Comics.
+///
+/// Use the serach field on the `NavigationBar` to search for a comic.
 struct ComicSearchView: View {
+    /// View model to grab the Comic specified.
     @ObservedObject var viewModel: ComicsViewModel
+    
+    /// Used to show the ``SettingsView`` modal.
     @State var showModal = false
     
     private var comicView: some View {
@@ -60,6 +66,7 @@ struct ComicSearchView: View {
     }
 }
 
+/// SwiftUI preview for ``ComicSearchView``.
 struct ComicSearchView_Previews: PreviewProvider {
     static var viewModel: ComicsViewModel {
         // Register mock session.

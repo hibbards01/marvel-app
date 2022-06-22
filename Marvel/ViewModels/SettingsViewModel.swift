@@ -17,9 +17,13 @@ protocol Settings {
     var privateKey: String { get }
 }
 
+/// Public Key string for UserDefaults.
 let publicKeyString = "publicKey"
+
+/// Private Key string for UserDefaults.
 let privateKeyString = "privateKey"
 
+/// View Model to save and provide the API keys.
 class SettingsViewModel: Settings, ObservableObject {
     var publicKey: String {
         get {

@@ -8,6 +8,9 @@
 import Swinject
 import Foundation
 
+/// Dependency injection.
+///
+/// This uses `Swinject` to register the protocols, classes, and structs.
 class MarvelAssembly: Assembly {
     func assemble(container: Container) {
         container.register(Settings.self) { _ in

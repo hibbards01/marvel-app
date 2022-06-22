@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-/// The main type.
+/// The base type.
 protocol MarvelModel: Codable {
     /// The ID.
     var id: Int { get }

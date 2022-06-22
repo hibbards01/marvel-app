@@ -18,7 +18,7 @@ protocol DataSource {
     /// The data publisher to send the results to the subcriber.
     var data: AnyPublisher<Result<[ModelType], AFError>, Never> { get }
     
-    /// Initalizer.
+    /// Creates a data source pointing to the `api` specified.
     /// - Parameters:
     ///   - api: The ``MarvelAPIService`` to use for the ``DataSource``
     ///   - sessionContainer: The session to make the requests on.

@@ -7,10 +7,18 @@
 
 import SwiftUI
 
+/// View to show the Comic.
 struct ComicView: View {
+    /// Title of the comic.
     let title: String
+    
+    /// A description.
     let desc: String?
+    
+    /// A variant description of the comic.
     let variantDesc: String?
+    
+    /// The comic image.
     let image: Image?
     
     var body: some View {
@@ -41,6 +49,7 @@ struct ComicView: View {
     }
 }
 
+/// SwiftUI preview for the ``ComicView``.
 struct ComicView_Previews: PreviewProvider {
     static var previews: some View {
         ComicView(title: "Marvel Previews (2017)",

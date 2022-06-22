@@ -11,10 +11,18 @@ import Alamofire
 import UIKit
 import SwiftUI
 
+/// View Model to grab the Comic.
 class ComicsViewModel: ObservableObject {
+    /// The comic given from the session.
     @Published var comic: ComicModel?
+    
+    /// The image of the comic.
     @Published var image: Image?
+    
+    /// Boolean to show an error.
     @Published var showError: String? = nil
+    
+    /// Text used for the search bar.
     var searchText: String = "" {
         didSet {
             if let id = Int(searchText) {
@@ -30,6 +38,10 @@ class ComicsViewModel: ObservableObject {
     private let dataSource: MarvelDataSource<ComicModel>
     private let sessionContainer: SessionContainer
     
+    /// Creates a comic view model.
+    /// - Parameters:
+    ///   - dataSource: The data source to grab the comic.
+    ///   - sessionContainer: The session to grab the image.
     init(dataSource: MarvelDataSource<ComicModel>, sessionContainer: SessionContainer) {
         self.dataSource = dataSource
         self.sessionContainer = sessionContainer

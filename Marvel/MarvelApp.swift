@@ -8,8 +8,10 @@
 import SwiftUI
 import UIKit
 
+/// The structure and behavior of the app.
 @main
 struct MarvelApp: App {
+    /// Sets the appearance proxies for the navigation bar.
     init() {
         let newAppearance = UINavigationBarAppearance()
         newAppearance.configureWithOpaqueBackground()

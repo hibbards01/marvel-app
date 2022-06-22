@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+/// View for the Settings of the app.
 struct SettingsView: View {
+    /// View model to save and retrieve the settings.
     @ObservedObject var viewModel: SettingsViewModel
     
     init() {
@@ -51,6 +53,7 @@ struct SettingsView: View {
     }
 }
 
+/// SwiftUI preview for ``SettingsView``.
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
