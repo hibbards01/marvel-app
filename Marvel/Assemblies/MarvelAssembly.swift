@@ -11,11 +11,22 @@ class MarvelAssembly: Assembly {
     func assemble(container: Container) {
         container.register(Settings.self) { _ in
             SettingsViewModel()
-        }.inObjectScope(.container)
+        }
+        
+        container.register(SessionContainer.self) { _ in
+            SessionContainerProvider()
+        }
         
         container.register(MarvelDataSource<ComicModel>.self) { resolver in
             let settings = resolver.resolve(Settings.self)!
-            return MarvelDataSource<ComicModel>(api: .comics, settings: settings)
+            let sessionContainer = resolver.resolve(SessionContainer.self)!
+            return MarvelDataSource<ComicModel>(api: .comics, sessionContainer: sessionContainer, settings: settings)
+        }
+        
+        container.register(ComicsViewModel.self) { resolver in
+            let dataSource = resolver.resolve(MarvelDataSource<ComicModel>.self)!
+            let sessionContainer = resolver.resolve(SessionContainer.self)!
+            return ComicsViewModel(dataSource: dataSource, sessionContainer: sessionContainer)
         }
     }
 }

@@ -21,8 +21,10 @@ protocol DataSource {
     /// Initalizer.
     /// - Parameters:
     ///   - api: The ``MarvelAPIService`` to use for the ``DataSource``
+    ///   - sessionContainer: The session to make the requests on.
     ///   - settings: The settings of the APP.
     init(api: MarvelAPIService,
+         sessionContainer: SessionContainer,
          settings: Settings)
     
     /// Request on the service with parameters.
@@ -33,21 +35,25 @@ protocol DataSource {
 }
 
 /// The data source to grab the results from the Marvel API.
-struct MarvelDataSource<Model: Codable>: DataSource {
+struct MarvelDataSource<Model: MarvelModel>: DataSource {
     var data: AnyPublisher<Result<[Model], AFError>, Never>
     private let api: MarvelAPIService
+    private let sessionContainer: SessionContainer
     private let settings: Settings
     private let subject = PassthroughSubject<Result<[Model], AFError>, Never>()
     
-    init(api: MarvelAPIService, settings: Settings) {
+    init(api: MarvelAPIService,
+         sessionContainer: SessionContainer,
+         settings: Settings) {
         self.api = api
+        self.sessionContainer = sessionContainer
         self.settings = settings
         self.data = subject.eraseToAnyPublisher()
     }
     
     func request(id: Int? = nil, with parameters: [String: String] = [:]) {
         Task {
-            let result = await getData(id: id, parameters: parameters)
+            let result = await sendRequest(id: id, parameters: parameters)
             
             // Check the result and see if everything passed.
             switch result {
@@ -64,20 +70,10 @@ struct MarvelDataSource<Model: Codable>: DataSource {
     /// Grab the data from the provided ``MarvelAPIService``.
     /// - Parameter parameters: The GET parameters to add onto the request.
     /// - Returns: Returns the data.
-    private func getData(id: Int?, parameters: [String: String]) async -> Result<ResponseContainer<Model>, AFError> {
+    private func sendRequest(id: Int?, parameters: [String: String]) async -> Result<ResponseContainer<Model>, AFError> {
         var newParameters = parameters
         append(parameters: &newParameters)
-        let dataTask = AF.request(api.url(id: id), method: .get, parameters: newParameters)
-            .serializingDecodable(ResponseContainer<Model>.self)
-        let response = await dataTask.response
-        
-        // Check the response make sure everything went thru.
-        if let statusCode = response.response?.statusCode,
-           statusCode != 200 {
-            return .failure(AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: statusCode)))
-        } else {
-            return response.result
-        }
+        return await sessionContainer.getData(url: api.url(id: id), parameters: newParameters)
     }
     
     /// Appends more GET parameters needed to make the request.

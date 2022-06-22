@@ -8,7 +8,7 @@
 import Foundation
 
 /// Container that holds the response.
-struct ResponseContainer<Model: Codable>: Codable {
+struct ResponseContainer<Model: MarvelModel>: Codable {
     /// Status code.
     let code: Int
     

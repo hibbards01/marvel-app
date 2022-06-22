@@ -8,7 +8,7 @@
 import Foundation
 
 /// Container to hold the data.
-struct DataContainer<Model: Codable>: Codable {
+struct DataContainer<Model: MarvelModel>: Codable {
     /// Number of skipped results.
     let offset: Int
     
