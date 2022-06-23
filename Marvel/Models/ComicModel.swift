@@ -21,7 +21,7 @@ protocol MarvelModel: Codable {
 }
 
 /// A Model representing a Comic.
-struct ComicModel: MarvelModel, Equatable {
+struct ComicModel: MarvelModel, Equatable, Identifiable {
     /// Comic ID.
     let id: Int
     

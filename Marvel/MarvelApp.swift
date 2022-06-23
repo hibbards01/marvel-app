@@ -11,7 +11,7 @@ import UIKit
 /// The structure and behavior of the app.
 @main
 struct MarvelApp: App {
-    /// Sets the appearance proxies for the navigation bar.
+    /// Sets the appearance proxies for the navigation bar and tab bar.
     init() {
         let newAppearance = UINavigationBarAppearance()
         newAppearance.configureWithOpaqueBackground()
@@ -24,6 +24,11 @@ struct MarvelApp: App {
         UINavigationBar.appearance().tintColor = .systemBackground
         
 //        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = .systemBackground
+        
+//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray], for: .normal)
+//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], for: .selected)
+        UITabBar.appearance().barTintColor = UIColor(named: "logo-red")
+//        UITabBar.appearance().scrollEdgeAppearance = UITabBarAppearance()
     }
     
     var body: some Scene {

@@ -33,7 +33,7 @@ Other frameworks that were used:
 
 ### ViewModels
 
-- ``ComicsViewModel``
+- ``ComicViewModel``
 - ``Settings``
 - ``SettingsViewModel``
 

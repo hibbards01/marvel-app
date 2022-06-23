@@ -38,10 +38,16 @@ class MarvelAssembly: Assembly {
             return MarvelDataSource<ComicModel>(api: .comics, sessionContainer: sessionContainer, settings: settings)
         }
         
-        container.register(ComicsViewModel.self) { resolver in
+        container.register(ComicViewModel.self) { resolver in
             let dataSource = resolver.resolve(MarvelDataSource<ComicModel>.self)!
             let sessionContainer = resolver.resolve(SessionContainer.self)!
-            return ComicsViewModel(dataSource: dataSource, sessionContainer: sessionContainer)
+            return ComicViewModel(dataSource: dataSource, sessionContainer: sessionContainer)
+        }
+        
+        container.register(ComicListViewModel.self) { resolver in
+            let dataSource = resolver.resolve(MarvelDataSource<ComicModel>.self)!
+            let sessionContainer = resolver.resolve(SessionContainer.self)!
+            return ComicListViewModel(dataSource: dataSource, sessionContainer: sessionContainer)
         }
     }
     

@@ -1,5 +1,5 @@
 //
-//  ComicsViewModel.swift
+//  ComicViewModel.swift
 //  Marvel
 //
 //  Created by Hibbard Family on 6/20/22.
@@ -12,7 +12,7 @@ import UIKit
 import SwiftUI
 
 /// View Model to grab the Comic.
-class ComicsViewModel: ObservableObject {
+class ComicViewModel: ObservableObject {
     /// The comic given from the session.
     @Published var comic: ComicModel?
     

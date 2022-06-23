@@ -13,7 +13,7 @@ import Swinject
 /// Use the serach field on the `NavigationBar` to search for a comic.
 struct ComicSearchView: View {
     /// View model to grab the Comic specified.
-    @ObservedObject var viewModel: ComicsViewModel
+    @ObservedObject var viewModel: ComicViewModel
     
     /// Used to show the ``SettingsView`` modal.
     @State var showModal = false
@@ -23,10 +23,12 @@ struct ComicSearchView: View {
             Color(uiColor: UIColor.systemBackground)
             
             if let comic = viewModel.comic {
-                ComicView(title: comic.title,
+                ComicView(id: UUID(),
+                          title: comic.title,
                           desc: comic.description,
                           variantDesc: comic.variantDescription,
                           image: viewModel.image)
+                    .padding(.horizontal)
             } else if let error = viewModel.showError {
                 Text(error)
                     .foregroundColor(.red)
@@ -68,12 +70,12 @@ struct ComicSearchView: View {
 
 /// SwiftUI preview for ``ComicSearchView``.
 struct ComicSearchView_Previews: PreviewProvider {
-    static var viewModel: ComicsViewModel {
+    static var viewModel: ComicViewModel {
         // Register mock session.
         let assemblies = Assembler([
             MarvelAssembly()
         ])
-        let viewModel = assemblies.resolver.resolve(ComicsViewModel.self)!
+        let viewModel = assemblies.resolver.resolve(ComicViewModel.self)!
         viewModel.comic = mockComicModels.first
         viewModel.image = Image(uiImage: UIImage(named: "marvel-image")!)
         
